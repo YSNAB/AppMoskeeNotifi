@@ -1,0 +1,47 @@
+import 'dotenv/config';
+
+export default {
+  expo: {
+    name: "AppMoskeeNotifi",
+    slug: "AppMoskeeNotifi",
+    version: "1.0.0",
+    orientation: "portrait",
+    icon: "./assets/icon-logo.png",
+    splash: {
+      image: "./assets/splash.png",
+      resizeMode: "contain",
+      backgroundColor: "#967563"
+    },
+    updates: {
+      "fallbackToCacheTimeout": 0
+    },
+    assetBundlePatterns: [
+      "**/*"
+    ],
+    ios: {
+      "supportsTablet": true,
+      
+    },
+    android: {
+      package: "com.ysnab.elfathnotifi",
+      adaptiveIcon: {
+        foregroundImage: "./assets/icon-logo.png",
+        backgroundColor: "#967563"
+      }
+    },
+    web: {
+      favicon: "./assets/icon-logo.png"
+    },
+    extra: {
+      apiKey: process.env.API_KEY,
+      authDomain: process.env.AUTH_DOMAIN,
+      projectId: process.env.PROJECT_ID,
+      databaseUrl: process.env.DATABASE_URL
+      //storageBucket: process.env.STORAGE_BUCKET,
+      //messagingSenderId: process.env.MESSAGING_SENDER_ID,
+      //appId: process.env.APP_ID      
+    }
+    
+  }
+
+}
