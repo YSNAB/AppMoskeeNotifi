@@ -26,7 +26,7 @@ async function ReadAllMessages() {
   return (firebase
     .database()
     .ref('/messages')
-    .orderByChild("timestamp")
+    .orderByChild('timestamp')
     .once('value'));
     
 } 

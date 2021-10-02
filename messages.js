@@ -5,33 +5,58 @@ import { mainColor, customRadius } from './settings.js';
 import { InitApp, ReadAllMessages } from './database.js';
 
 class EenBericht extends Component {
-    
     state = {
-        make_bigger: false
+        make_bigger: false,
+        msg: "",
+        cropped_msg: "",
+        trunc: false
+    }
+
+    constructor(props) {
+        super(props);
+        if (this.props.message.length > 100) {
+            this.state.trunc = true
+            let sliced = this.props.message.slice(0, 100)
+            let msg = ""
+            this.state.cropped_msg = msg.concat(sliced, " ...")
+            this.state.msg = msg.concat(sliced, " ...") // init van het bericht bij grote
+        }else{
+            this.state.msg = this.props.message // init van het bericht bij kleine
+        }  
     }
     
     handleClick = () => {
-        this.setState({make_bigger: !this.state.make_bigger})
+        let display_msg = this.state.make_bigger ? this.state.cropped_msg  : this.props.message
+        this.setState({
+            make_bigger: !this.state.make_bigger, 
+            msg:  display_msg
+        })
     }
     
     getDateFromTimeStamp() {
         let d = new Date(this.props.date*1000);
         return d.toLocaleDateString("nl-NL")
     }
+
+    getButton() {
+        return(
+        <View key={this.props.given_ke + "_4"} style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+        <Text key={this.props.given_key + "_5"} onPress={this.handleClick} style={[{ marginTop: this.state.make_bigger ? 20 : 15 }, styles.leesmeer, styles.shaduw]}> {this.state.make_bigger ? "Lees minder" : "Lees meer"} </Text>
+        </View>
+
+        );
+    }
     
-    render(){    
+    render(){
         return(
             <View key={this.props.given_key + "_1"} style={[styles.een_bericht, styles.shaduw]} >
                 <Text key={this.props.given_key + "_2"} style={styles.titel_bericht}>[{this.getDateFromTimeStamp()}]  {this.props.title}</Text>
-                <Text key={this.props.given_key + "_3"} numberOfLines={this.state.make_bigger ? 0 : 2} style={styles.bericht}>{this.props.message}</Text> 
-                <View key={this.props.given_ke + "_4"} style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                    <Text key={this.props.given_key + "_5"} onPress={this.handleClick} style={[{ marginTop: this.state.make_bigger ? 20 : 15 }, styles.leesmeer, styles.shaduw]}> {this.state.make_bigger ? "Verklein" : "Vergroot"} </Text>
-                </View>
-            </View>);
-        return (
-            <View key={this.props.given_key + "_1"} style={[styles.een_bericht, styles.shaduw]} >
+                <Text key={this.props.given_key + "_3"} style={styles.bericht}>{this.state.msg}</Text> 
+                {this.state.trunc ? this.getButton() : null}
+
             </View>
         );
+
     }
 }
 
