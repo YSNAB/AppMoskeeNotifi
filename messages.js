@@ -14,14 +14,18 @@ class EenBericht extends Component {
         this.setState({make_bigger: !this.state.make_bigger})
     }
     
+    getDateFromTimeStamp() {
+        let d = new Date(this.props.date*1000);
+        return d.toLocaleDateString("nl-NL")
+    }
     
     render(){    
         return(
             <View key={this.props.given_key + "_1"} style={[styles.een_bericht, styles.shaduw]} >
-                <Text key={this.props.given_key + "_2"} style={styles.titel_bericht}>{this.props.date} : {this.props.title}</Text>
+                <Text key={this.props.given_key + "_2"} style={styles.titel_bericht}>[{this.getDateFromTimeStamp()}]  {this.props.title}</Text>
                 <Text key={this.props.given_key + "_3"} numberOfLines={this.state.make_bigger ? 0 : 2} style={styles.bericht}>{this.props.message}</Text> 
                 <View key={this.props.given_ke + "_4"} style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                    <Text key={this.props.given_key + "_5"} onPress={this.handleClick} style={[{ marginTop: this.state.make_bigger ? 30 : 15 }, styles.leesmeer, styles.shaduw]}> {this.state.make_bigger ? "Verklein" : "Vergroot"} </Text>
+                    <Text key={this.props.given_key + "_5"} onPress={this.handleClick} style={[{ marginTop: this.state.make_bigger ? 20 : 15 }, styles.leesmeer, styles.shaduw]}> {this.state.make_bigger ? "Verklein" : "Vergroot"} </Text>
                 </View>
             </View>);
         return (
@@ -31,7 +35,14 @@ class EenBericht extends Component {
     }
 }
 
+/*
+mport time
 
+# seconds passed since epoch
+seconds = 1545925769.9618232
+local_time = time.ctime(seconds)
+print("Local time:", local_time)
+*/
 
 
 class Messages extends Component {
@@ -66,7 +77,7 @@ class Messages extends Component {
             }
             return (
                 <View>                    
-                    {Object.keys(this.state.messages).map( (element) => {
+                    {Object.keys(this.state.messages).reverse().map( (element) => {
                         return <EenBericht key={element} title={messages[element].title} message={messages[element].message} date={messages[element].date} given_key={element} />
                     })}
                 </View> 

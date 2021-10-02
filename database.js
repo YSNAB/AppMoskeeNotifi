@@ -21,10 +21,12 @@ function InitApp() {
   !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
 }
 
+//returns order by wrong order. But corrected in mapping my messages.js
 async function ReadAllMessages() {
   return (firebase
     .database()
     .ref('/messages')
+    .orderByChild("timestamp")
     .once('value'));
     
 } 
