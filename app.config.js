@@ -20,6 +20,7 @@ export default {
     ],
     ios: {
       "supportsTablet": true,
+      "bundleIdentifier": "com.ysnab.elfathnotifi"
       
     },
     android: {
