@@ -23,9 +23,8 @@ const Top = () => {
 
 
 const MainContent = () => {
-
   return (
-      <ScrollView style={[styles.maincontent]}>
+      <ScrollView style={[styles.maincontent, styles.shadow]}>
         <Messages />
       </ScrollView>
   );
@@ -129,7 +128,9 @@ const styles = StyleSheet.create({
     borderRadius: customRadius,
     backgroundColor: "white",
     padding: 20,
-    alignContent: "center",
-},
+    alignContent: "center"    
+  },
+
+
 });
 
